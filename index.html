@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" />
+  </head>
+  <body>
+    <div class="main_div">
+        <div class="box">
+            <div class="inner">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <div id="qutoes">this is the some text</div>
+                <div id="author">author</div>
+                <button id="newQ">new qutoes</button>
+            </div>
+        </div>
+    </div>
+    <script>
+      let realData = "";
+      const qutoss = document.getElementById("qutoes");
+      const author = document.getElementById("author");
+      const newQ = document.getElementById("newQ");
+      const getNewQutos = () => {
+        let rnum = Math.floor(Math.random() * 10);
+        // console.log(rnum);
+        // console.log(realData[rnum].text);
+        qutoss.innerText = realData[rnum].text;
+        author.innerText = realData[rnum].author;
+      };
+
+      const getQuetes = async () => {
+        const api = "https://type.fit/api/quotes";
+        // console.log(api);
+        try {
+          let data = await fetch(api);
+          // console.log(data.json());
+          realData = await data.json();
+          getNewQutos();
+          // console.log(realData.length);
+          // console.log(realData[10].author);
+        } catch (error) {}
+      };
+
+      newQ.addEventListener("click", getNewQutos);
+
+      getQuetes(); //call the main function
+    </script>
+  </body>
+</html>
